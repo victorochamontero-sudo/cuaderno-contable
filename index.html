@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Aprendeya: Cuaderno Contable.">
+<meta name="theme-color" content="#1F4E9C">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'%3E%3Crect x='2' y='3' width='22' height='20' rx='2' fill='none' stroke='%231F4E9C' stroke-width='2'/%3E%3Cpath d='M13 3v20M2 9h22' stroke='%231F4E9C' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="manifest" href="data:application/json,{}">
+<script>
+  const manifest = {
+    name: "Aprendeya: Cuaderno Contable", short_name: "Cuaderno Contable",
+    start_url: "./cuadernocontable.html", display: "standalone", background_color: "#EAF0EB", theme_color: "#1F4E9C",
+    icons: [{ src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'%3E%3Crect width='26' height='26' fill='%231F4E9C'/%3E%3Crect x='3' y='4' width='20' height='18' rx='2' fill='none' stroke='%23FFFFFF' stroke-width='2'/%3E%3Cpath d='M13 4v18M3 10h20' stroke='%23FFFFFF' stroke-width='2'/%3E%3C/svg%3E", sizes: "192x192", type: "image/svg+xml" }]
+  };
+  const blob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
+  document.querySelector('link[rel="manifest"]').setAttribute('href', URL.createObjectURL(blob));
+</script>
+<style>
+:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
+:root{ --bg:#EAF0EB; --surface:#F8FAF7; --ink:#13231D; --ink2:#4A5B53; --line:#C5D1C8; --rule:#DCE5DE; --accent:#1F4E9C; --on-accent:#FFFFFF; --tint:#DEE8F6; --debe:#1F4E9C; --haber:#A63A2B; --ok:#1D7448; --ok-bg:#DCEFE3; --bad:#B03120; --bad-bg:#F8E1DB; --s1:#46607F; --s2:#6F8A5E; --s3:#A98544; --s4:#8A6A8E; --s5:#5D8597; --f-display:'Bricolage Grotesque',system-ui,sans-serif; --f-body:'Source Sans 3',system-ui,sans-serif; --f-mono:'IBM Plex Mono',ui-monospace,monospace; }
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){ --bg:#0E1613; --surface:#15201B; --ink:#E3EEE8; --ink2:#9DB0A6; --line:#2C3C34; --rule:#22302A; --accent:#86AEF2; --on-accent:#0B1A33; --tint:#1A2B47; --debe:#8DB3F4; --haber:#F2A090; --ok:#6FD3A0; --ok-bg:#16301F; --bad:#F5A08F; --bad-bg:#3A201B; --s1:#7F9BBF; --s2:#93B07F; --s3:#CDA766; --s4:#B494B8; --s5:#85AEC0; color-scheme:dark}}
+*,*::before,*::after{box-sizing:border-box} [hidden]{display:none!important} html{scroll-behavior:smooth} body{background:var(--bg);color:var(--ink);font:400 17px/1.55 var(--f-body);padding-block:0 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.shell{max-width:1120px;margin:0 auto} a{color:var(--accent)} :focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:3px} h1:focus{outline:none}
+h1,h2,h3,h4{font-family:var(--f-display);margin:0;text-wrap:balance;letter-spacing:-.015em} h1{font-weight:800;font-size:clamp(30px,5.2vw,46px);line-height:1.06} h2{font-weight:800;font-size:clamp(22px,3vw,28px);line-height:1.15} h3{font-weight:600;font-size:19px;line-height:1.25} p{margin:0}
+.lead{font-size:19px;color:var(--ink2);max-width:62ch} .kicker{font:500 12.5px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)} .prose{max-width:66ch} b,strong{font-weight:700} .d{color:var(--debe)} .h{color:var(--haber)} b.d,b.h{font-weight:700}
+.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 24px;padding-block:16px 12px;border-bottom:3px double var(--ink)}
+.brand{display:flex;align-items:center;gap:10px;font:800 22px var(--f-display);color:var(--ink);text-decoration:none}
+.prog{display:flex;align-items:center;gap:10px;font:600 14px var(--f-body);color:var(--ink2)} .prog .bar{width:150px;height:8px;background:var(--line);border-radius:2px;overflow:hidden} .prog .bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.app{display:grid;grid-template-columns:232px minmax(0,1fr);gap:36px}
+nav.steps{position:sticky;top:calc(16px + env(safe-area-inset-top,0px));align-self:start;display:flex;flex-direction:column;gap:2px;margin-top:24px}
+.step{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:6px;color:var(--ink2);text-decoration:none;font-weight:600;font-size:15px}
+.step:hover{background:var(--tint)} .step .n{flex:none;width:24px;height:24px;display:grid;place-items:center;font:500 12.5px var(--f-mono);border:1px solid var(--line);border-radius:4px;background:var(--surface)}
+.step[aria-current="page"]{background:var(--tint);color:var(--accent)} .step[aria-current="page"] .n{border-color:var(--accent);color:var(--accent)} .step.done .n{background:var(--ok);border-color:var(--ok);color:var(--surface)}
+main{min-width:0;padding-block:28px 24px} .view{display:flex;flex-direction:column;gap:24px} .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center} .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+@media (max-width:860px){ .app{grid-template-columns:minmax(0,1fr);gap:0} nav.steps{position:static;flex-direction:row;overflow-x:auto;margin-top:14px;padding-bottom:8px;gap:6px} .step{white-space:nowrap;border:1px solid var(--line);background:var(--surface)} .prog .bar{width:110px} }
+.card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:20px;display:flex;flex-direction:column;gap:12px}
+.paper{background-image:repeating-linear-gradient(to bottom,transparent 0 29px,var(--rule) 29px 30px)}
+.note{border:1px dashed var(--ink2);border-radius:6px;padding:14px 16px;background:var(--surface);max-width:70ch} .q{font:600 20px/1.35 var(--f-display)} .empty{padding:22px;border:1px dashed var(--line);border-radius:6px;color:var(--ink2);background:var(--surface)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font:700 15.5px var(--f-body);min-height:44px;padding:9px 18px;border-radius:6px;border:1px solid var(--accent);background:var(--accent);color:var(--on-accent);cursor:pointer;text-decoration:none;line-height:1.2}
+.btn:hover{filter:brightness(1.08)} .btn.ghost{background:transparent;color:var(--accent)} .btn:disabled{opacity:.45;cursor:not-allowed}
+.chip{font:600 14.5px var(--f-body);min-height:40px;padding:6px 14px;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer} .chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.tag{display:inline-block;font:600 11.5px var(--f-body);text-transform:uppercase;padding:2px 8px;border-radius:3px;background:var(--tint);color:var(--accent)} .pager{display:flex;justify-content:space-between;padding-top:20px;border-top:1px solid var(--line)}
+select,input[type="text"]{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--ink2);border-radius:6px;padding:9px 12px;min-height:44px;width:100%} label{font-weight:600;font-size:15px} .lab.d{color:var(--debe)} .lab.h{color:var(--haber)}
+.fb{padding:14px 16px;border-radius:6px;border:1px solid} .fb.ok{background:var(--ok-bg);border-color:var(--ok)} .fb.bad{background:var(--bad-bg);border-color:var(--bad)} .fb.info{background:var(--tint);border-color:var(--accent)}
+.route{list-style:none;margin:0;padding:0} .rc{display:flex;flex-direction:column;gap:6px;padding:16px;border:1px solid var(--line);border-radius:6px;background:var(--surface);text-decoration:none;color:var(--ink)} .rc:hover{border-color:var(--accent)} .rc .rn{font:500 12.5px var(--f-mono);color:var(--ink2)} .rc .rt{font:600 18px var(--f-display)} .rc .rd{font-size:15px;color:var(--ink2)} .rc .rs{font:600 12.5px var(--f-body);color:var(--ok);min-height:1em} .legend{padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:6px} .tbl{width:100%;border-collapse:collapse;min-width:520px;font-size:15.5px} .tbl th{font:600 12.5px var(--f-body);text-transform:uppercase;text-align:left;padding:10px;border-bottom:2px solid var(--ink)} .tbl td{padding:7px 12px;border-bottom:1px solid var(--rule)}
+.num{text-align:right;font-family:var(--f-mono)} th.num{text-align:right} .tbl .tot td{border-top:1px solid var(--ink);border-bottom:3px double var(--ink);font-weight:600} .tbl td.totc{border-top:1px solid var(--ink);border-bottom:3px double var(--ink);font-weight:600}
+.diario .fecha{width:96px;font-size:14px;color:var(--ink2);border-right:1px solid var(--rule)} .diario .as tr:last-child td{border-bottom:1px solid var(--line)} .diario .cred .det{padding-left:38px} .diario .glosa td{font-size:14.5px;color:var(--ink2);font-style:italic}
+.fxs{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px} .fx{font:600 12px var(--f-body);padding:1px 8px;border-radius:99px;border:1px solid} .fx.up{color:var(--ok)} .fx.down{color:var(--haber)}
+.x{background:none;border:1px solid var(--line);border-radius:6px;padding:2px 10px;cursor:pointer} .x:hover{border-color:var(--bad);color:var(--bad)}
+.mayor{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px} .tacc{background:var(--surface);border:1px solid var(--line);border-radius:6px} .tacc>header{padding:10px 12px;display:flex;align-items:center;gap:8px;border-bottom:2px solid var(--ink)} .tacc h4{flex:1}
+.tacc .cols{display:grid;grid-template-columns:1fr 1fr;min-height:56px} .tacc .col{list-style:none;margin:0;padding:0;background-image:repeating-linear-gradient(to bottom,transparent 0 27px,var(--rule) 27px 28px)} .tacc .col+.col{border-left:2px solid var(--ink)} .tacc li{height:28px}
+.ln{display:flex;justify-content:space-between;width:100%;height:28px;padding:0 10px;cursor:pointer;font:400 13.5px var(--f-mono)} .ln:hover{background:var(--tint)} .ln.hl{background:var(--tint);box-shadow:inset 0 0 0 1px var(--accent)}
+.tacc footer{border-top:1px solid var(--ink)} .tot2{display:grid;grid-template-columns:1fr 1fr} .tot2 span{padding:2px 10px;text-align:right;font:600 13.5px var(--f-mono);border-bottom:3px double var(--ink)} .tot2 span+span{border-left:2px solid var(--ink)} .saldo{padding:8px 12px;display:flex;justify-content:space-between}
+.eq{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:stretch} .eq>i{font:800 28px var(--f-display);color:var(--ink2)} .eqb{border:1px solid var(--ink);border-radius:6px;padding:12px;background:var(--surface)} .eqb b{font:600 20px var(--f-mono)}
+@media (max-width:560px){.eq{grid-template-columns:1fr}}
+.bar2{display:flex;height:26px;border-radius:3px;background:var(--rule)} .bar2 i{height:100%} .bar2 .a{background:var(--s1)} .bar2 .p{background:var(--s4)} .bar2 .pt{background:var(--s2)}
+.evts{display:flex;flex-direction:column;gap:8px} .evt{font:600 15.5px var(--f-body);padding:10px;border:1px solid var(--line);border-radius:6px;background:var(--surface);cursor:pointer} .evt[aria-pressed="true"]{border-color:var(--accent);background:var(--tint)}
+dl.glos{display:grid;grid-template-columns:1fr 3fr;gap:8px} dt{font-weight:700} dd{margin:0;color:var(--ink2)}
+.steps3{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));list-style:none;padding:0} .steps3 li{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:16px}
+.dots{display:flex;flex-wrap:wrap;gap:6px} .dot{width:40px;height:40px;border-radius:6px;border:1px solid var(--line);background:var(--surface);cursor:pointer} .dot.done{background:var(--ok);color:#fff} .dot[aria-current="true"]{outline:3px solid var(--accent)}
+.pick{display:grid;gap:8px 18px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))} .amt{font:600 18px var(--f-mono)} .opts{display:flex;flex-direction:column;gap:8px}
+.opt{font:600 16px var(--f-body);padding:11px 14px;border:1px solid var(--ink2);border-radius:6px;background:var(--surface);cursor:pointer} .opt.right{background:var(--ok-bg);border-color:var(--ok)} .opt.wrong{background:var(--bad-bg);border-color:var(--bad)}
+.cbar{display:flex;height:30px;border-radius:3px;background:var(--rule)} .cleg{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:6px 18px} .cleg li{display:flex;align-items:center;gap:8px} .cleg i{width:12px;height:12px}
+.badge{padding:6px 12px;border-radius:6px;border:1px solid} .badge.ok{color:var(--ok);background:var(--ok-bg)} .badge.bad{color:var(--bad);background:var(--bad-bg)}
+.lrow{display:grid;grid-template-columns:minmax(0,1fr) 140px 140px 44px;gap:8px} .lrow input{text-align:right} @media (max-width:620px){.lrow{grid-template-columns:1fr 1fr 44px}} .form2{display:grid;gap:10px;grid-template-columns:140px minmax(0,1fr)} @media (max-width:620px){.form2{grid-template-columns:1fr}}
+.tabs{display:flex;flex-wrap:wrap;gap:6px} .lsum{font:500 14.5px var(--f-mono);color:var(--ink2)}
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="top">
+    <a class="brand" href="#inicio"><svg width="28" height="28" viewBox="0 0 26 26"><rect x="2" y="3" width="22" height="20" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M13 3v20M2 9h22" stroke="currentColor" stroke-width="2"/></svg><span style="color:var(--accent)">Aprendeya:</span> Cuaderno Contable</a>
+    <div class="prog" role="group" aria-label="Progreso"><span id="prog-txt">0 de 11 lecciones</span><span class="bar"><i id="prog-bar"></i></span></div>
+  </header>
+  <div class="app">
+    <nav id="nav" class="steps" aria-label="Lecciones"></nav>
+    <main id="main">
+      <section class="view" id="v-inicio" hidden></section>
+      <section class="view" id="v-ecuacion" hidden></section>
+      <section class="view" id="v-cuentas" hidden></section>
+      <section class="view" id="v-asientos" hidden></section>
+      <section class="view" id="v-taller" hidden></section>
+      <section class="view" id="v-diario" hidden></section>
+      <section class="view" id="v-mayor" hidden></section>
+      <section class="view" id="v-balance" hidden></section>
+      <section class="view" id="v-resultados" hidden></section>
+      <section class="view" id="v-quiz" hidden></section>
+      <section class="view" id="v-laboratorio" hidden></section>
+      <section class="view" id="v-iva" hidden></section>
+    </main>
+  </div>
+</div><script>
+(function(){
+'use strict';
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const nf=new Intl.NumberFormat('es-CL');
+const m=n=>'$'+nf.format(Math.round(n));
+const store={ get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}}, set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}} };
+
+const TIPOS={
+  activo:{l:'Activo',lado:'D',que:'Lo que el negocio tiene y usa para operar o para cobrar más adelante.',ej:'Caja, Banco, Clientes, Mercaderías, IVA Crédito Fiscal',donde:'Balance general',truco:'Lo que tengo'},
+  pasivo:{l:'Pasivo',lado:'H',que:'Lo que el negocio debe a otras personas, empresas o al Estado.',ej:'Proveedores, Préstamos, IVA Débito Fiscal, PPM por pagar',donde:'Balance general',truco:'Lo que debo'},
+  patrimonio:{l:'Patrimonio',lado:'H',que:'Lo que pertenece al dueño: su aporte más las ganancias que quedan en el negocio.',ej:'Capital, Cuenta particular del socio',donde:'Balance general',truco:'Lo que es del dueño'},
+  ingreso:{l:'Ingreso',lado:'H',que:'Lo que el negocio gana por su actividad durante un período.',ej:'Ventas, Otros ingresos',donde:'Estado de resultados',truco:'Lo que gano'},
+  gasto:{l:'Gasto',lado:'D',que:'Lo que el negocio consume o paga para poder vender.',ej:'Costo de ventas, Arriendo, Sueldos, Servicios, Depreciación',donde:'Estado de resultados',truco:'Lo que consumo'}
+};
+const ACCS=[
+  ['1101','Caja','activo','Dinero en efectivo que hay en el local.'],['1102','Banco','activo','Dinero depositado en la cuenta corriente.'],['1103','Clientes','activo','Lo que los clientes todavía te deben por ventas a crédito.'],['1104','Mercaderías','activo','Productos que compraste para revender.'],['1105','IVA Crédito Fiscal','activo','IVA pagado en compras; se recupera en el F29.'],['1201','Muebles y útiles','activo','Estantes, mostradores y otros bienes de uso duradero.'],['1202','Equipos computacionales','activo','Computadores, impresoras y caja registradora.'],['2101','Proveedores','pasivo','Lo que le debes a quienes te vendieron a crédito.'],['2102','Préstamos por pagar','pasivo','Deuda con un banco u otra entidad financiera.'],['2103','IVA Débito Fiscal','pasivo','IVA cobrado en ventas; se entera al SII.'],['2104','PPM por pagar','pasivo','Pagos provisionales mensuales pendientes.'],['2105','Retenciones por pagar','pasivo','Retenciones de honorarios y cotizaciones.'],['2106','Remuneraciones por pagar','pasivo','Sueldos devengados y aún no pagados.'],['3101','Capital','patrimonio','Lo que el dueño aportó para iniciar el negocio.'],['3102','Cuenta particular del socio','patrimonio','Aportes o retiros del dueño fuera de la operación.'],['4101','Ventas','ingreso','Lo que cobras o cobrarás por vender tus productos.'],['4102','Otros ingresos','ingreso','Ingresos que no vienen de vender mercaderías, como una comisión.'],['5101','Costo de ventas','gasto','Lo que te costó comprar la mercadería que ya vendiste.'],['5102','Arriendo','gasto','Pago mensual por el local.'],['5103','Sueldos','gasto','Remuneraciones del personal.'],['5104','Servicios básicos','gasto','Luz, agua e internet.'],['5105','Publicidad','gasto','Avisos, volantes y promociones.'],['5106','Depreciación','gasto','Desgaste de muebles, equipos y otros bienes de uso.'],['5107','Gastos generales','gasto','Gastos menores que no calzan en otra categoría.']
+].map(([c,n,t,d])=>({c,n,t,d}));
+const ACC=Object.fromEntries(ACCS.map(a=>[a.c,a]));
+
+const TX=[
+  {f:'01 nov',txt:'El dueño abre el minimarket aportando $5.000.000 en efectivo.',glosa:'Aporte inicial del dueño',d:'1101',h:'3101',m:5000000,pista:'¿Ese dinero es una deuda o un aporte?',why:'Caja (activo) sube al Debe. El Capital (patrimonio) sube al Haber.'},
+  {f:'02 nov',txt:'Compras mercaderías al contado por $2.000.000.',glosa:'Compra de mercaderías',d:'1104',h:'1101',m:2000000,pista:'Un activo entra y otro sale.',why:'Mercaderías sube (Debe) y Caja baja (Haber).'},
+  {f:'03 nov',txt:'Compras estantes por $800.000 a crédito.',glosa:'Compra de muebles a crédito',d:'1201',h:'2101',m:800000,pista:'No sale dinero, quedas debiendo.',why:'Muebles sube (Debe) y Proveedores (pasivo) sube (Haber).'},
+  {f:'04 nov',txt:'El banco te otorga un préstamo de $1.000.000.',glosa:'Préstamo recibido',d:'1102',h:'2102',m:1000000,pista:'Entra dinero pero hay que devolverlo.',why:'Banco sube (Debe) y Préstamos (pasivo) sube (Haber).'},
+  {f:'05 nov',txt:'Vendes mercaderías al contado por $1.500.000.',glosa:'Venta al contado',d:'1101',h:'4101',m:1500000,pista:'Entra dinero y hay una ganancia.',why:'Caja sube (Debe) y Ventas (ingreso) sube (Haber).'},
+  {f:'05 nov',txt:'Registras el costo de la venta anterior: $900.000.',glosa:'Costo de la venta',d:'5101',h:'1104',m:900000,pista:'La mercadería sale de tus existencias.',why:'Costo de ventas sube (Debe) y Mercaderías baja (Haber).'},
+  {f:'08 nov',txt:'Vendes a crédito a un cliente por $700.000.',glosa:'Venta a crédito',d:'1103',h:'4101',m:700000,pista:'No entra dinero, pero te deben.',why:'Clientes (activo) sube al Debe y Ventas sube al Haber.'},
+  {f:'08 nov',txt:'Registras el costo de la venta a crédito: $420.000.',glosa:'Costo venta a crédito',d:'5101',h:'1104',m:420000,pista:'Igual que el asiento 6.',why:'Costo sube (Debe) y Mercaderías baja (Haber).'},
+  {f:'10 nov',txt:'Pagas el arriendo del local: $350.000.',glosa:'Pago de arriendo',d:'5102',h:'1101',m:350000,pista:'Es un gasto, sale dinero.',why:'Arriendo (gasto) sube al Debe y Caja baja al Haber.'},
+  {f:'15 nov',txt:'Pagas sueldos por $300.000.',glosa:'Pago de sueldos',d:'5103',h:'1101',m:300000,pista:'Es un gasto, sale dinero.',why:'Sueldos sube (Debe) y Caja baja (Haber).'},
+  {f:'18 nov',txt:'El cliente te paga $150.000 en efectivo.',glosa:'Cobro parcial a cliente',d:'1101',h:'1103',m:150000,pista:'Lo que te debían se convierte en dinero.',why:'Caja sube (Debe) y Clientes baja (Haber).'},
+  {f:'20 nov',txt:'Pagas $300.000 al proveedor.',glosa:'Pago a proveedor',d:'2101',h:'1101',m:300000,pista:'Baja la deuda y baja la caja.',why:'Proveedores (pasivo) baja al Debe y Caja baja al Haber.'},
+  {f:'28 nov',txt:'Pagas luz y agua: $80.000.',glosa:'Pago de servicios básicos',d:'5104',h:'1101',m:80000,pista:'Es un gasto.',why:'Servicios básicos sube (Debe) y Caja baja (Haber).'}
+];
+const txEntry=(t,i)=>({n:i+1,id:'t'+i,fecha:t.f,glosa:t.glosa,lineas:[{c:t.d,d:t.m,h:0},{c:t.h,d:0,h:t.m}]});
+const ENTRIES=TX.map(txEntry);
+
+function ledger(entries){
+  const L={};
+  entries.forEach(e=>e.lineas.forEach(l=>{
+    const a=ACC[l.c]; if(!a) return;
+    const o=L[l.c]||(L[l.c]={c:l.c,a:a,D:[],H:[],tD:0,tH:0});
+    if(l.d>0){o.D.push({n:e.n,m:l.d});o.tD+=l.d}
+    if(l.h>0){o.H.push({n:e.n,m:l.h});o.tH+=l.h}
+  }));
+  Object.values(L).forEach(o=>{const s=o.tD-o.tH;o.saldo=Math.abs(s);o.lado=s>=0?'D':'H'});
+  return L;
+}
+const sorted=L=>Object.values(L).sort((a,b)=>a.c.localeCompare(b.c));
+function balanceData(entries){
+  const rows=sorted(ledger(entries));
+  const t={sd:0,sh:0,dd:0,dh:0};
+  rows.forEach(o=>{t.sd+=o.tD;t.sh+=o.tH;if(o.lado==='D')t.dd+=o.saldo;else t.dh+=o.saldo});
+  return {rows,t,ok:t.sd===t.sh&&t.dd===t.dh,diff:Math.abs(t.sd-t.sh)};
+}
+function resultados(entries){
+  const L=ledger(entries);
+  const cred=c=>L[c]?L[c].tH-L[c].tD:0;
+  const ventas=cred('4101'),otros=cred('4102'),costo=-cred('5101');
+  const gastos=['5102','5103','5104','5105','5106','5107'].map(c=>({c:c,n:ACC[c].n,v:-cred(c)})).filter(g=>g.v!==0);
+  const margen=ventas-costo,totG=gastos.reduce((s,g)=>s+g.v,0),res=margen-totG+otros;
+  const sum=(t,sg)=>Object.values(L).filter(o=>o.a.t===t).reduce((s,o)=>s+(o.tD-o.tH)*sg,0);
+  return {ventas,otros,costo,gastos,margen,totG,res,act:sum('activo',1),pas:sum('pasivo',-1),pat:sum('patrimonio',-1)};
+}
+
+const tipoTag=t=>`<span class="tag t-${t}">${TIPOS[t].l}</span>`;
+function efecto(e){ return e.lineas.map(l=>{ const a=ACC[l.c]; const side=l.d>0?'D':'H'; const up=side===TIPOS[a.t].lado; return `<span class="fx ${up?'up':'down'}">${up?'▲':'▼'} ${esc(a.n)} ${up?'sube':'baja'}</span>`; }).join(''); }
+function diarioHTML(entries,opt){
+  opt=opt||{}; if(!entries.length) return '<p class="empty">Todavía no hay asientos registrados.</p>';
+  let tD=0,tH=0;
+  const body=entries.map(e=>{
+    const rows=e.lineas.map((l,i)=>{
+      tD+=l.d;tH+=l.h;const a=ACC[l.c];
+      return `<tr class="${l.h>0?'cred':''}">${i===0?`<td class="fecha" rowspan="${e.lineas.length+1}"><b>N° ${e.n}</b><br>${esc(e.fecha)}</td>`:''}<td class="det">${l.h>0?'a ':''}${esc(a.n)}</td><td class="num">${l.d>0?m(l.d):''}</td><td class="num">${l.h>0?m(l.h):''}</td></tr>`;
+    }).join('');
+    const del=opt.del?` <button type="button" class="x" data-del="${e.id||e.n}">Eliminar</button>`:'';
+    return `<tbody class="as">${rows}<tr class="glosa"><td colspan="3">${esc(e.glosa)}<div class="fxs">${opt.noFx?'':efecto(e)}${del}</div></td></tr></tbody>`;
+  }).join('');
+  const foot=opt.noTot?'':`<tfoot><tr><td></td><td><b>Sumas iguales</b></td><td class="num totc">${m(tD)}</td><td class="num totc">${m(tH)}</td></tr></tfoot>`;
+  return `<div class="scroll"><table class="tbl diario"><thead><tr><th>Fecha</th><th>Detalle</th><th class="num d">Debe</th><th class="num h">Haber</th></tr></thead>${body}${foot}</table></div>`;
+}
+function mayorHTML(entries){
+  const list=sorted(ledger(entries)); if(!list.length) return '<p class="empty">Sin asientos.</p>';
+  const ln=x=>`<li><button type="button" class="ln" data-n="${x.n}"><span class="ref">(${x.n})</span><span>${m(x.m)}</span></button></li>`;
+  return `<div class="mayor">${list.map(o=>`<article class="tacc" data-t="${o.a.t}"><header><span class="cod">${o.c}</span><h4>${esc(o.a.n)}</h4>${tipoTag(o.a.t)}</header><div class="cols"><ul class="col"><li class="hd">Debe</li>${o.D.map(ln).join('')}</ul><ul class="col"><li class="hd h">Haber</li>${o.H.map(ln).join('')}</ul></div><footer><div class="tot2"><span>${m(o.tD)}</span><span>${m(o.tH)}</span></div><p class="saldo"><span>Saldo ${o.lado==='D'?'deudor':'acreedor'}</span><b>${m(o.saldo)}</b></p></footer></article>`).join('')}</div>`;
+}
+function balanceHTML(bd){
+  if(!bd.rows.length) return '<p class="empty">Sin datos.</p>';
+  const r=bd.rows.map(o=>`<tr><td>${o.c}</td><td>${esc(o.a.n)}</td><td class="num">${m(o.tD)}</td><td class="num">${m(o.tH)}</td><td class="num">${o.lado==='D'&&o.saldo?m(o.saldo):''}</td><td class="num">${o.lado==='H'&&o.saldo?m(o.saldo):''}</td></tr>`).join('');
+  return `<div class="scroll"><table class="tbl"><thead><tr><th>Código</th><th>Cuenta</th><th class="num">Debe</th><th class="num">Haber</th><th class="num">S. Deudor</th><th class="num">S. Acreedor</th></tr></thead><tbody>${r}</tbody><tfoot><tr class="tot"><td></td><td>Totales</td><td class="num">${m(bd.t.sd)}</td><td class="num">${m(bd.t.sh)}</td><td class="num">${m(bd.t.dd)}</td><td class="num">${m(bd.t.dh)}</td></tr></tfoot></table></div>`;
+}
+const badgeHTML=bd=>bd.rows.length?(bd.ok?'<span class="badge ok">✓ El balance cuadra</span>':`<span class="badge bad">✗ No cuadra: diferencia ${m(bd.diff)}</span>`):'';
+function estadoHTML(r,titulo){
+  const row=(l,v,c)=>`<tr class="${c||''}"><td>${l}</td><td class="num">${m(v)}</td></tr>`;
+  let h=`<div class="scroll"><table class="tbl"><thead><tr><th>${titulo||'Estado de resultados'}</th><th class="num">Monto</th></tr></thead><tbody>`;
+  h+=`<tr class="sec"><td colspan="2">Ingresos</td></tr>`+row('Ventas',r.ventas)+row('(−) Costo de ventas',r.costo)+row('Margen bruto',r.margen,'sub');
+  if(r.gastos.length) h+=`<tr class="sec"><td colspan="2">Gastos</td></tr>`+r.gastos.map(g=>row(esc(g.n),g.v)).join('')+row('Total gastos',r.totG,'sub');
+  if(r.otros) h+=`<tr class="sec"><td colspan="2">Otros</td></tr>`+row('Otros ingresos',r.otros);
+  h+=`<tr class="tot"><td>${r.res>=0?'Utilidad':'Pérdida'}</td><td class="num">${m(Math.abs(r.res))}</td></tr></tbody></table></div>`;
+  return h;
+}
+function compHTML(r){
+  if(r.ventas<=0||r.res<0||r.otros) return '';
+  const parts=[{n:'Costo de ventas',v:r.costo,c:'var(--s1)'}].concat(r.gastos.map((g,i)=>({n:g.n,v:g.v,c:['var(--s2)','var(--s3)','var(--s4)','var(--s5)'][i%4]}))).concat([{n:'Utilidad',v:r.res,c:'var(--ok)'}]);
+  return `<div class="card"><h3>Distribución de ventas</h3><div class="cbar">${parts.map(p=>`<i style="width:${(p.v/r.ventas*100).toFixed(1)}%;background:${p.c}"></i>`).join('')}</div><ul class="cleg">${parts.map(p=>`<li><i style="background:${p.c}"></i>${esc(p.n)}<span>${m(p.v)}</span></li>`).join('')}</ul></div>`;
+}
+function eqHTML(r){
+  const ok=r.act===r.pas+r.pat+r.res;
+  return `<div class="card"><h3>Ecuación Contable</h3><div class="eq"><div class="eqb"><span>Activo</span><b>${m(r.act)}</b></div><i>=</i><div class="eqb"><span>Pasivo</span><b>${m(r.pas)}</b></div><i>+</i><div class="eqb"><span>Patrimonio</span><b>${m(r.pat+r.res)}</b></div></div><p>${ok?'La ecuación cuadra perfectamente.':'Revisa los asientos.'}</p></div>`;
+}
+
+const ROUTES=[
+  {id:'inicio',t:'Inicio',d:''},{id:'ecuacion',t:'La ecuación contable',d:'Qué tiene, qué debe y qué es del dueño.'},{id:'cuentas',t:'Tipos de cuentas',d:'Activo, pasivo, patrimonio, ingresos y gastos.'},{id:'asientos',t:'Asientos contables',d:'Cómo registrar en Debe y Haber.'},{id:'taller',t:'Taller de asientos',d:'Registra las 13 operaciones.'},{id:'diario',t:'Libro diario',d:'Operaciones en orden cronológico.'},{id:'mayor',t:'Libro mayor',d:'Movimientos por cuenta con su saldo.'},{id:'balance',t:'Balance de comprobación',d:'Verifica que todo cuadra.'},{id:'resultados',t:'Estado de resultados',d:'¿Utilidad o pérdida?'},{id:'quiz',t:'Quiz final',d:'Comprueba lo aprendido.'},{id:'laboratorio',t:'Tu propio ejercicio',d:'Registra y arma informes.'},{id:'iva',t:'IVA y F29',d:'Registra IVA y liquida el F29.'}
+];
+const total=ROUTES.length-1;
+const done=new Set(store.get('cc-done',[]));
+let current=ROUTES[0];
+function markDone(id){ if(id==='inicio') return; done.add(id); store.set('cc-done',Array.from(done)); progress(); nav(); }
+function progress(){ const n=ROUTES.filter(r=>r.id!=='inicio'&&done.has(r.id)).length; $('#prog-txt').textContent=n+' de '+total+' lecciones'; $('#prog-bar').style.width=(n/total*100)+'%'; }
+function nav(){ $('#nav').innerHTML=ROUTES.map((r,i)=>`<a class="step ${done.has(r.id)?'done':''}" href="#${r.id}" ${r.id===current.id?'aria-current="page"':''}><span class="n">${r.id==='inicio'?'⌂':(done.has(r.id)?'✓':i)}</span><span>${esc(r.t)}</span></a>`).join(''); }
+function pager(id){ const i=ROUTES.findIndex(r=>r.id===id),p=ROUTES[i-1],n=ROUTES[i+1]; return `<div class="pager">${p?`<a class="btn ghost" href="#${p.id}">← ${esc(p.t)}</a>`:'<span></span>'}${n?`<a class="btn" href="#${n.id}" data-done="${id}">${esc(n.t)} →</a>`:''}</div>`; }
+const head=(id,kick,title,lead)=>{const i=ROUTES.findIndex(r=>r.id===id);return `<div class="row" style="flex-direction:column;align-items:flex-start;gap:10px"><p class="kicker">${kick||('Lección '+i+' de '+total)}</p><h1 tabindex="-1">${title}</h1>${lead?`<p class="lead">${lead}</p>`:''}</div>`};
+
+const views={};
+
+views.inicio=el=>{
+  const e1=ENTRIES[0];
+  el.innerHTML=`
+  <div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start">
+    <p class="kicker" style="color:var(--accent)">✨ Aprendeya · Cuaderno Contable</p>
+    <h1 tabindex="-1">Estudia menos.<br>Aprende <i style="color:var(--accent)">mucho más</i>.</h1>
+    <p class="lead">Aprende contabilidad desde cero con <b>Aprendeya</b>. Acompaña a un minimarket en su primer mes: registra asientos, usa el libro diario y arma el estado de resultados en minutos.</p>
+  </div>
+  <div class="card paper"><p class="kicker">Así se ve una operación</p><p class="q">“${esc(TX[0].txt)}”</p>${diarioHTML([e1],{noFx:true,noTot:true})}<ul class="legend"><li>Entra dinero a Caja: un activo que sube va al <b class="d">Debe</b>.</li><li>El aporte aumenta el Capital: un patrimonio que sube va al <b class="h">Haber</b>.</li></ul></div>
+  <div class="row"><a class="btn" href="#ecuacion">Comenzar la primera lección</a><a class="btn ghost" href="#laboratorio">Ir al laboratorio</a></div>
+  <h2>Tu ruta</h2>
+  <ol class="route grid">${ROUTES.slice(1).map((r,i)=>`<li><a class="rc" href="#${r.id}"><span class="rn">LECCIÓN ${i+1}</span><span class="rt">${esc(r.t)}</span><span class="rd">${esc(r.d)}</span><span class="rs">${done.has(r.id)?'✓ Completada':''}</span></a></li>`).join('')}</ol>
+  <div class="note"><strong>Nota:</strong> Los montos están en pesos chilenos. Para no complicar la mecánica, el minimarket no incluye IVA. El IVA se enseña aparte en la lección 11.</div>`;
+};
+
+views.ecuacion=el=>{
+  const on=new Set(); let last='Elige una operación para ver cómo cambia cada parte.';
+  const EVT=[{t:'El dueño aporta $5.000.000',a:5000000,p:0,pt:5000000,nota:'El activo sube y el patrimonio sube igual.'},{t:'Compras mercaderías a crédito por $2.000.000',a:2000000,p:2000000,pt:0,nota:'Tienes más activos y una deuda.'},{t:'Pides un préstamo de $1.000.000',a:1000000,p:1000000,pt:0,nota:'Entra dinero y nace una deuda.'},{t:'Pagas $500.000 a un proveedor',a:-500000,p:-500000,pt:0,nota:'Baja el activo y baja el pasivo.'},{t:'Compras muebles por $800.000',a:0,p:0,pt:0,nota:'Un activo sube y otro baja.'},{t:'Vendes por $600.000 algo que costó $400.000',a:200000,p:0,pt:200000,nota:'La ganancia aumenta el patrimonio.'}];
+  el.innerHTML=head('ecuacion',null,'La ecuación contable','Todo lo que un negocio tiene fue pagado con deudas o con plata del dueño.')+`
+  <div class="card"><div class="eq" id="eq-box"></div><div class="bars" id="eq-bars"></div><div class="fb info" id="eq-note" role="status" aria-live="polite"></div></div>
+  <div class="card"><h3>Prueba operaciones</h3><div class="evts" id="evts">${EVT.map((e,i)=>`<button type="button" class="evt" data-i="${i}" aria-pressed="false">${esc(e.t)}</button>`).join('')}</div><div class="row"><button type="button" class="btn ghost" id="eq-reset">Volver al inicio</button></div></div>
+  <div class="grid"><div class="card"><h3>Partida doble</h3><p>Cada operación afecta a dos cuentas y el Debe siempre es igual al Haber.</p></div><div class="card"><h3>Debe y Haber</h3><p>Son el lado izquierdo y derecho. Qué sube depende del tipo de cuenta.</p></div></div>`+pager('ecuacion');
+  const base={a:3000000,p:1000000,pt:2000000}, MAXV=11000000;
+  function draw(){ let a=base.a,p=base.p,pt=base.pt; on.forEach(i=>{a+=EVT[i].a;p+=EVT[i].p;pt+=EVT[i].pt}); $('#eq-box',el).innerHTML=`<div class="eqb"><span>Activo</span><b>${m(a)}</b></div><i>=</i><div class="eqb"><span>Pasivo</span><b>${m(p)}</b></div><i>+</i><div class="eqb"><span>Patrimonio</span><b>${m(pt)}</b></div>`; $('#eq-note',el).textContent=last+(a===p+pt?' Las dos partes siguen iguales.':''); }
+  $('#evts',el).addEventListener('click',ev=>{ const b=ev.target.closest('.evt'); if(!b) return; const i=+b.dataset.i; if(on.has(i)){on.delete(i);b.setAttribute('aria-pressed','false');last='Quitaste: '+EVT[i].t+'.'}else{on.add(i);b.setAttribute('aria-pressed','true');last=EVT[i].nota} draw(); });
+  $('#eq-reset',el).addEventListener('click',()=>{on.clear();$$('.evt',el).forEach(b=>b.setAttribute('aria-pressed','false'));last='Volviste al inicio.';draw()}); draw();
+};
+
+views.cuentas=el=>{
+  el.innerHTML=head('cuentas',null,'Tipos de cuentas','Si sabes a qué familia pertenece una cuenta, sabes en qué lado sube.')+`
+  <div class="grid">${Object.keys(TIPOS).map(k=>{const t=TIPOS[k];return `<article class="card">${tipoTag(k)}<h3>${t.l}</h3><p>${t.que}</p><p><b>Ejemplos:</b> ${t.ej}.</p><p><b>Sube por el <span class="${t.lado==='D'?'d':'h'}">${t.lado==='D'?'Debe':'Haber'}</span>.</b></p></article>`}).join('')}</div>
+  <div class="card"><h3>La regla completa</h3><div class="scroll"><table class="tbl"><thead><tr><th>Tipo</th><th>Aumenta</th><th>Disminuye</th><th>Saldo</th></tr></thead><tbody>${['activo','gasto','pasivo','patrimonio','ingreso'].map(k=>{const t=TIPOS[k],D=t.lado==='D';return `<tr><td>${t.l}</td><td class="${D?'d':'h'}"><b>${D?'Debe':'Haber'}</b></td><td class="${D?'h':'d'}"><b>${D?'Haber':'Debe'}</b></td><td>${D?'Deudor':'Acreedor'}</td></tr>`}).join('')}</tbody></table></div></div>
+  <div class="card" id="cls"></div>`+pager('cuentas');
+  const box=$('#cls',el); let order,i,score;
+  function start(){order=ACCS.slice().sort(()=>Math.random()-.5);i=0;score=0;draw()}
+  function draw(){
+    if(i>=order.length){ box.innerHTML=`<h3>Práctica</h3><p class="score">${score} de ${order.length}</p><p>${score>=order.length-2?'Muy bien.':'Sigue practicando.'}</p><div class="row"><button type="button" class="btn" id="cls-again">Jugar de nuevo</button></div>`; $('#cls-again',box).addEventListener('click',start); return; }
+    const a=order[i];
+    box.innerHTML=`<h3>¿De qué tipo es?</h3><p class="kicker">Cuenta ${i+1} de ${order.length}</p><p class="q">${esc(a.n)}</p><div class="cls">${Object.keys(TIPOS).map(k=>`<button type="button" class="opt" data-k="${k}">${TIPOS[k].l}</button>`).join('')}</div><div id="cls-fb" role="status" aria-live="polite"></div>`;
+    $$('.opt',box).forEach(b=>b.addEventListener('click',()=>{ const ok=b.dataset.k===a.t; if(ok) score++; $$('.opt',box).forEach(x=>{x.disabled=true;if(x.dataset.k===a.t)x.classList.add('right')}); if(!ok) b.classList.add('wrong'); $('#cls-fb',box).innerHTML=`<div class="fb ${ok?'ok':'bad'}"><span><b>${ok?'Correcto.':'No.'}</b> ${esc(a.n)} es ${TIPOS[a.t].l}.</span><div class="row"><button type="button" class="btn" id="cls-next">Siguiente</button></div></div>`; const nx=$('#cls-next',box); nx.focus(); nx.addEventListener('click',()=>{i++;draw()}); }));
+  } start();
+};
+
+views.asientos=el=>{
+  const ej=txEntry(TX[2],2);
+  el.innerHTML=head('asientos',null,'Asientos contables','Siempre responde: ¿qué cuentas se mueven?, ¿de qué tipo son?, ¿en qué lado van?')+`
+  <ol class="steps3"><li><h3>1.</h3><p>¿Qué cuentas se mueven?</p></li><li><h3>2.</h3><p>¿De qué tipo es cada una y sube o baja?</p></li><li><h3>3.</h3><p>¿En qué lado va?</p></li></ol>
+  <div class="card"><h3>Un ejemplo resuelto</h3><p class="q">“${esc(TX[2].txt)}”</p>${diarioHTML([ej],{noTot:true})}<ul class="legend"><li><b>Cuentas:</b> Muebles y Proveedores.</li><li>Activo que sube va al <b class="d">Debe</b>. Pasivo que sube va al <b class="h">Haber</b>.</li></ul></div>
+  <div class="row"><a class="btn" href="#taller">Practicar en el taller</a></div>`+pager('asientos');
+};
+
+let tIdx=0; const tDone=new Set(store.get('cc-taller',[]));
+function accOptions(sel){ return '<option value="">Elige cuenta…</option>'+Object.keys(TIPOS).map(k=>`<optgroup label="${TIPOS[k].l}">${ACCS.filter(a=>a.t===k).map(a=>`<option value="${a.c}"${a.c===sel?' selected':''}>${esc(a.n)}</option>`).join('')}</optgroup>`).join(''); }
+views.taller=el=>{
+  el.innerHTML=head('taller',null,'Taller de asientos','Elige qué cuenta va al Debe y cuál al Haber.')+`<div class="dots" id="t-dots"></div><div class="card" id="t-card"></div><div id="t-end"></div>`+pager('taller');
+  drawT(el);
+};
+function drawT(el){
+  const t=TX[tIdx];
+  $('#t-dots',el).innerHTML=TX.map((x,i)=>`<button type="button" class="dot ${tDone.has(i)?'done':''}" data-i="${i}" ${i===tIdx?'aria-current="true"':''}>${i+1}</button>`).join('');
+  $('#t-card',el).innerHTML=`<p class="kicker">Operación ${tIdx+1} de ${TX.length} · ${esc(t.f)}</p><p class="q">${esc(t.txt)}</p><p>Monto: <span class="amt">${m(t.m)}</span></p>
+    <div class="pick"><div><label><span class="lab d">Debe</span>Cuenta:</label><select id="t-d">${accOptions('')}</select></div><div><label><span class="lab h">Haber</span>Cuenta:</label><select id="t-h">${accOptions('')}</select></div></div>
+    <div class="row"><button type="button" class="btn" id="t-check">Comprobar</button><button type="button" class="btn ghost" id="t-show">Ver respuesta</button><button type="button" class="btn ghost" id="t-next" ${tIdx>=TX.length-1?'disabled':''}>Siguiente</button></div><div id="t-fb" role="status"></div>`;
+  const fb=$('#t-fb',el),sd=$('#t-d',el),sh=$('#t-h',el);
+  const good=()=>{fb.innerHTML=`<div class="fb ok"><span><b>Correcto.</b> ${esc(t.why)}</span>${diarioHTML([txEntry(t,tIdx)],{noTot:true})}</div>`};
+  if(tDone.has(tIdx)){sd.value=t.d;sh.value=t.h;good()}
+  $('#t-check',el).addEventListener('click',()=>{
+    const d=sd.value,h=sh.value; let msg='';
+    if(!d||!h) msg='Elige ambas cuentas.';
+    else if(d===h) msg='Deben ser cuentas distintas.';
+    else if(d===t.d&&h===t.h){ tDone.add(tIdx);store.set('cc-taller',Array.from(tDone));good();$$('.dot',el)[tIdx].classList.add('done'); if(tDone.size===TX.length){markDone('taller');$('#t-end',el).innerHTML='<div class="fb ok"><b>¡Resolviste todo!</b><div class="row"><a class="btn" href="#diario">Ir al diario</a></div></div>'} return; }
+    else if(d===t.h&&h===t.d) msg='Están al revés. Piensa qué lado sube.';
+    else msg='Cuenta equivocada. Pista: '+t.pista;
+    fb.innerHTML=`<div class="fb bad"><span>${esc(msg)}</span></div>`;
+  });
+  $('#t-show',el).addEventListener('click',()=>{sd.value=t.d;sh.value=t.h;fb.innerHTML=`<div class="fb info"><span><b>Respuesta:</b> ${esc(t.why)}</span>${diarioHTML([txEntry(t,tIdx)],{noTot:true})}</div>`});
+  $('#t-next',el).addEventListener('click',()=>{if(tIdx<TX.length-1){tIdx++;drawT(el)}});
+  $$('.dot',el).forEach(b=>b.addEventListener('click',()=>{tIdx=+b.dataset.i;drawT(el)}));
+}
+
+views.diario=el=>{
+  el.innerHTML=head('diario',null,'Libro diario','Cada operación se anota por orden de fecha.')+`<div class="note">El Debe va a la izquierda, el Haber con «a» y sangría.</div>${diarioHTML(ENTRIES)}`+pager('diario');
+};
+
+let hlN=null;
+views.mayor=el=>{
+  hlN=null;
+  el.innerHTML=head('mayor',null,'Libro mayor','Los movimientos agrupados por cuenta con su saldo.')+`<div id="m-body">${mayorHTML(ENTRIES)}</div>`+pager('mayor');
+  const body=$('#m-body',el);
+  function paint(){$$('.ln',body).forEach(b=>b.classList.toggle('hl',hlN!==null&&b.dataset.n===hlN))}
+  body.addEventListener('click',ev=>{const b=ev.target.closest('.ln');if(!b)return;hlN=(hlN===b.dataset.n)?null:b.dataset.n;paint()});
+  paint();
+};
+
+let simErr=false;
+views.balance=el=>{
+  el.innerHTML=head('balance',null,'Balance de comprobación','Comprueba que el Debe y el Haber suman lo mismo.')+`
+  <div class="row"><span id="b-badge"></span></div><div id="b-table"></div>
+  <div class="card"><h3>Simular error</h3><p>En el asiento 5, sumar $90.000 de más.</p><div class="row"><button type="button" class="btn ghost" id="b-sim"></button></div><div id="b-msg" role="status"></div></div>`+pager('balance');
+  function draw(){
+    const ents=simErr?ENTRIES.map(e=>e.n===5?Object.assign({},e,{lineas:e.lineas.map((l,i)=>i===0?Object.assign({},l,{d:l.d+90000}):l)}):e):ENTRIES;
+    const bd=balanceData(ents);
+    $('#b-badge',el).innerHTML=badgeHTML(bd); $('#b-table',el).innerHTML=balanceHTML(bd);
+    const btn=$('#b-sim',el);btn.textContent=simErr?'Corregir':'Introducir error';
+    $('#b-msg',el).innerHTML=simErr?`<div class="fb bad"><span>Diferencia de ${m(bd.diff)}. Culpable: asiento 5.</span></div>`:'';
+  }
+  $('#b-sim',el).addEventListener('click',()=>{simErr=!simErr;draw()}); draw();
+};
+
+views.resultados=el=>{
+  const r=resultados(ENTRIES);
+  el.innerHTML=head('resultados',null,'Estado de resultados','Ingresos menos costos y gastos del mes.')+`${estadoHTML(r,'Minimarket · noviembre')}${compHTML(r)}${eqHTML(r)}`+pager('resultados');
+};
+
+const QZ=[
+  {q:'¿Cuál es la ecuación contable?',o:['Activo = Pasivo + Patrimonio','Activo = Ingresos − Gastos','Pasivo = Activo + Capital'],a:0,e:'Lo que tienes se financia con deudas o con aportes.'},
+  {q:'Un activo aumenta en el…',o:['Haber','Debe','Cualquiera'],a:1,e:'Activos y gastos suben por el Debe.'},
+  {q:'Proveedores es…',o:['Activo','Pasivo','Gasto'],a:1,e:'Es lo que debes, un pasivo.'},
+  {q:'La partida doble significa…',o:['Dos cuentas por asiento','Debe = Haber','Se anota dos veces'],a:1,e:'Lo que va al Debe debe sumar igual al Haber.'},
+  {q:'¿Qué libro registra por fecha?',o:['Mayor','Balance','Diario'],a:2,e:'El diario es cronológico.'},
+  {q:'¿Para qué sirve el mayor?',o:['Agrupar por cuenta','Anotar por fecha','Calcular utilidad'],a:0,e:'Agrupa movimientos y muestra saldos.'},
+  {q:'Si el balance no cuadra…',o:['Se deja','Se ajusta el capital','Buscas el error'],a:2,e:'Hay un error de registro o suma.'},
+  {q:'El estado de resultados muestra…',o:['Lo que tienes y debes','Ingresos − Costos y Gastos','Caja disponible'],a:1,e:'Indica si hay utilidad o pérdida.'},
+  {q:'Ventas $1.500.000 y Costo $900.000. Margen bruto:',o:['$2.400.000','$600.000','$900.000'],a:1,e:'Margen = Ventas − Costo.'},
+  {q:'Pagar arriendo es…',o:['Un activo','Un gasto','Un pasivo'],a:1,e:'Es un gasto que reduce la utilidad.'}
+];
+views.quiz=el=>{
+  el.innerHTML=head('quiz',null,'Quiz final','Diez preguntas.')+`<div class="card" id="qz"></div>`+pager('quiz');
+  const box=$('#qz',el); let i=0,score=0;
+  function draw(){
+    if(i>=QZ.length){ const best=Math.max(store.get('cc-best',0),score);store.set('cc-best',best); if(score>=7) markDone('quiz'); box.innerHTML=`<p class="score">${score} de ${QZ.length}</p><p>Mejor puntaje: ${best}</p><div class="row"><button type="button" class="btn" id="qz-again">Otra vez</button></div>`; $('#qz-again',box).addEventListener('click',()=>{i=0;score=0;draw()});return; }
+    const q=QZ[i];
+    box.innerHTML=`<p class="kicker">Pregunta ${i+1} de ${QZ.length}</p><p class="q">${esc(q.q)}</p><div class="opts">${q.o.map((o,k)=>`<button type="button" class="opt" data-k="${k}">${esc(o)}</button>`).join('')}</div><div id="qz-fb"></div>`;
+    $$('.opt',box).forEach(b=>b.addEventListener('click',()=>{ const k=+b.dataset.k,ok=k===q.a;if(ok)score++; $$('.opt',box).forEach(x=>{x.disabled=true;if(+x.dataset.k===q.a)x.classList.add('right')}); if(!ok)b.classList.add('wrong'); $('#qz-fb',box).innerHTML=`<div class="fb ${ok?'ok':'bad'}"><span>${esc(q.e)}</span><div class="row"><button type="button" class="btn" id="qz-next">${i+1<QZ.length?'Siguiente':'Fin'}</button></div></div>`; const nx=$('#qz-next',box);nx.focus();nx.addEventListener('click',()=>{i++;draw()}); }));
+  } draw();
+};
+
+let lab=null, labTab='diario', lid=0, wipeArm=false;
+function loadLab(){ const s=store.get('cc-lab',null); lab=s===null?JSON.parse(JSON.stringify(ENTRIES)):s; lab.forEach((e,i)=>{if(!e.id)e.id='a'+i+'_'+Date.now()}); }
+function saveLab(){lab.forEach((e,i)=>{e.n=i+1;if(!e.id)e.id='a'+Date.now()+'_'+i});store.set('cc-lab',lab)}
+function lrow(){lid++;return `<div class="lrow"><select aria-label="Cuenta">${accOptions('')}</select><input type="text" inputmode="numeric" placeholder="Debe"><input type="text" inputmode="numeric" placeholder="Haber"><button type="button" class="x rm">×</button></div>`}
+const num=v=>parseInt(String(v).replace(/\D/g,''),10)||0;
+
+views.laboratorio=el=>{
+  hlN=null; if(lab===null) loadLab(); const sample=store.get('cc-lab',null)===null; wipeArm=false;
+  el.innerHTML=head('laboratorio',null,'Tu propio ejercicio','Registra tus asientos y mira cómo se arman los informes.')+
+  (sample?`<div class="note"><strong>Ejemplo cargado.</strong> Puedes cambiar o borrar y empezar de cero.</div>`:'')+`
+  <form class="card" id="lab-form" novalidate><h3>Nuevo asiento</h3>
+    <div class="form2"><label>Fecha</label><input type="text" id="lf-fecha" value="30 nov" maxlength="12"><label>Glosa</label><input type="text" id="lf-glosa" placeholder="Qué pasó"></div>
+    <div id="lf-lines" style="display:flex;flex-direction:column;gap:8px"></div>
+    <div class="row"><button type="button" class="btn ghost" id="lf-add">Agregar línea</button></div>
+    <p class="lsum" id="lf-sum"></p><div id="lf-err"></div>
+    <div class="row"><button type="submit" class="btn">Registrar asiento</button></div></form>
+  <div class="row">
+    <button type="button" class="btn ghost" id="lab-sample">Cargar el ejemplo</button>
+    <button type="button" class="btn ghost" id="lab-wipe">Borrar todo</button>
+    <button type="button" class="btn" id="lab-csv" style="background:var(--ok);border-color:var(--ok);margin-left:auto">Descargar CSV</button>
+    <button type="button" class="btn ghost" id="lab-print">Imprimir / PDF</button>
+  </div>
+  <div class="tabs" role="tablist">${[['diario','Libro diario'],['mayor','Libro mayor'],['balance','Balance de comprobación'],['resultados','Estado de resultados']].map(t=>`<button type="button" class="chip" role="tab" data-t="${t[0]}" aria-pressed="${labTab===t[0]}">${t[1]}</button>`).join('')}</div>
+  <div id="lab-out" style="display:flex;flex-direction:column;gap:16px"></div>`+pager('laboratorio');
+
+  const lines=$('#lf-lines',el);
+  const reset=()=>{lines.innerHTML=lrow()+lrow();upd()};
+  function upd(){ let d=0,h=0,bad=false; $$('.lrow',lines).forEach(r=>{const c=$('select',r).value,a=num($$('input',r)[0].value),b=num($$('input',r)[1].value);d+=a;h+=b;if(c&&((a>0)===(b>0)))bad=true;if(!c&&(a||b))bad=true}); $('#lf-sum',el).textContent=`Debe ${m(d)} · Haber ${m(h)} · dif ${m(Math.abs(d-h))}`; return {d,h,bad}; }
+  function out(){
+    const o=$('#lab-out',el); $$('.chip[role="tab"]',el).forEach(b=>b.setAttribute('aria-pressed',b.dataset.t===labTab?'true':'false'));
+    if(!lab.length){o.innerHTML='<p class="empty">Sin asientos.</p>';return}
+    if(labTab==='diario') o.innerHTML=diarioHTML(lab,{del:true});
+    else if(labTab==='mayor') o.innerHTML=mayorHTML(lab);
+    else if(labTab==='balance'){const bd=balanceData(lab);o.innerHTML=`<div class="row">${badgeHTML(bd)}</div>`+balanceHTML(bd)}
+    else{const r=resultados(lab);o.innerHTML=estadoHTML(r,'Estado de resultados')+compHTML(r)+eqHTML(r)}
+  }
+  lines.addEventListener('input',upd); lines.addEventListener('change',upd);
+  lines.addEventListener('focusout',ev=>{const t=ev.target;if(t.tagName==='INPUT'){const v=num(t.value);t.value=v?nf.format(v):''}upd()});
+  lines.addEventListener('click',ev=>{const b=ev.target.closest('.rm');if(!b)return;if($$('.lrow',lines).length>2){b.closest('.lrow').remove();upd()}});
+  $('#lf-add',el).addEventListener('click',()=>{lines.insertAdjacentHTML('beforeend',lrow());upd()});
+  $('#lab-form',el).addEventListener('submit',ev=>{
+    ev.preventDefault(); const s=upd(),err=$('#lf-err',el),ls=[];
+    $$('.lrow',lines).forEach(r=>{const c=$('select',r).value,a=num($$('input',r)[0].value),b=num($$('input',r)[1].value);if(c&&(a||b))ls.push({c:c,d:a,h:b})});
+    let msg='';
+    if(!$('#lf-glosa',el).value.trim()) msg='Escribe una glosa.';
+    else if(s.bad) msg='Cada línea debe tener monto en un solo lado.';
+    else if(ls.length<2) msg='Mínimo dos líneas.';
+    else if(s.d!==s.h) msg=`Debe y Haber difieren en ${m(Math.abs(s.d-s.h))}.`;
+    if(msg){err.innerHTML=`<div class="fb bad"><span>${esc(msg)}</span></div>`;return}
+    err.innerHTML=''; lab.push({n:lab.length+1,id:'a'+Date.now(),fecha:$('#lf-fecha',el).value.trim()||'—',glosa:$('#lf-glosa',el).value.trim(),lineas:ls});
+    saveLab(); if(!done.has('laboratorio')) markDone('laboratorio'); $('#lf-glosa',el).value='';reset();out();
+  });
+  $('.tabs',el).addEventListener('click',ev=>{const b=ev.target.closest('.chip');if(!b)return;labTab=b.dataset.t;out()});
+  $('#lab-out',el).addEventListener('click',ev=>{
+    const d=ev.target.closest('[data-del]');if(d){const key=d.dataset.del;lab=lab.filter(e=>String(e.id)!==key&&String(e.n)!==key);saveLab();out();return}
+    const n=ev.target.closest('.ln');if(n){hlN=(hlN===n.dataset.n)?null:n.dataset.n;$$('.ln',el).forEach(b=>b.classList.toggle('hl',hlN!==null&&b.dataset.n===hlN))}
+  });
+  $('#lab-sample',el).addEventListener('click',()=>{lab=JSON.parse(JSON.stringify(ENTRIES));lab.forEach((e,i)=>{if(!e.id)e.id='a'+i+'_'+Date.now()});saveLab();out()});
+  
+  // --- Exportar CSV e Imprimir ---
+  $('#lab-csv',el).addEventListener('click',()=>{
+    if(!lab.length){alert('No hay asientos.');return}
+    let csv='Fecha,Glosa,Cuenta,Debe,Haber\n';
+    lab.forEach(e=>e.lineas.forEach(l=>{const a=ACC[l.c]?ACC[l.c].n:'?'; csv+=`"${e.fecha}","${e.glosa}","${a}",${l.d||''},${l.h||''}\n`;}));
+    const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
+    const url=URL.createObjectURL(blob); const a=document.createElement('a');a.href=url;a.download='Aprendeya_Asientos.csv';a.click();URL.revokeObjectURL(url);
+  });
+  $('#lab-print',el).addEventListener('click',()=>{
+    if(!lab.length){alert('No hay asientos.');return}
+    const iframe=document.createElement('iframe');iframe.style.cssText='position:fixed;right:0;bottom:0;width:0;height:0;border:0';document.body.appendChild(iframe);
+    const doc=iframe.contentWindow.document; const styles=Array.from(document.querySelectorAll('style,link[rel="stylesheet"]')).map(s=>s.outerHTML).join('');
+    doc.open(); doc.write(`<!doctype html><html><head><title>Aprendeya - Asientos</title>${styles}<style>body{background:#fff!important;color:#000!important;padding:20px!important}@media print{@page{margin:15mm}}</style></head><body><div style="text-align:center;margin-bottom:20px"><h1 style="font-size:24px">Aprendeya: Cuaderno Contable</h1><p>Reporte de Asientos</p></div>${diarioHTML(lab)}</body></html>`); doc.close();
+    iframe.contentWindow.focus(); setTimeout(()=>{iframe.contentWindow.print();document.body.removeChild(iframe)},500);
+  });
+
+  const wipe=$('#lab-wipe',el);
+  wipe.addEventListener('click',()=>{
+    if(!wipeArm){wipeArm=true;wipe.textContent='¿Seguro? Pulsa de nuevo';setTimeout(()=>{wipeArm=false;if(wipe.isConnected)wipe.textContent='Borrar todo'},3500);return}
+    wipeArm=false;wipe.textContent='Borrar todo';lab=[];saveLab();out();
+  });
+  reset();out();
+};
+
+const IVA_TX=[
+  {f:'05 dic',txt:'Compras mercaderías por $1.000.000 neto más 19% de IVA, al contado.',glosa:'Compra con IVA',lineas:[{c:'1104',d:1000000,h:0},{c:'1105',d:190000,h:0},{c:'1101',d:0,h:1190000}]},
+  {f:'12 dic',txt:'Vendes mercaderías por $2.000.000 neto más 19% de IVA, al contado.',glosa:'Venta con IVA',lineas:[{c:'1101',d:2380000,h:0},{c:'4101',d:0,h:2000000},{c:'2103',d:0,h:380000}]},
+  {f:'20 dic',txt:'Registras el costo de la mercadería vendida: $900.000.',glosa:'Costo de la venta',lineas:[{c:'5101',d:900000,h:0},{c:'1104',d:0,h:900000}]},
+  {f:'31 dic',txt:'Liquidación de IVA del mes: débito $380.000 menos crédito $190.000 = $190.000 a pagar al SII.',glosa:'Liquidación F29',lineas:[{c:'2103',d:380000,h:0},{c:'1105',d:0,h:190000},{c:'2104',d:0,h:190000}]}
+];
+function ivaResumen(){ const L=ledger(IVA_TX); const deb=L['2103']?L['2103'].tH:0,cred=L['1105']?L['1105'].tD:0; return {deb,cred,neto:deb-cred}; }
+views.iva=el=>{
+  const r=ivaResumen();
+  el.innerHTML=head('iva',null,'IVA y F29','En Chile el IVA es 19%. En compras pagas IVA Crédito Fiscal (activo) y en ventas cobras IVA Débito Fiscal (pasivo).')+`
+  <div class="card paper"><p class="kicker">Asiento de compra</p><p class="q">“Compras mercaderías por $1.000.000 neto más 19% de IVA.”</p>${diarioHTML([IVA_TX[0]],{noTot:true})}
+    <ul class="legend"><li>Mercaderías: $1.000.000 al Debe.</li><li>IVA Crédito Fiscal: $190.000 al Debe.</li><li>Caja baja: $1.190.000 al Haber.</li></ul></div>
+  <div class="card"><h3>Las 4 operaciones del mes</h3>${diarioHTML(IVA_TX)}</div>
+  <div class="card"><h3>Liquidación del F29</h3><div class="scroll"><table class="tbl"><thead><tr><th>Concepto</th><th class="num">Monto</th></tr></thead><tbody>
+      <tr><td>IVA Débito Fiscal</td><td class="num">${m(r.deb)}</td></tr><tr><td>(−) IVA Crédito Fiscal</td><td class="num">${m(r.cred)}</td></tr><tr class="tot"><td>IVA a pagar al SII</td><td class="num">${m(r.neto)}</td></tr>
+    </tbody></table></div><p>${r.neto>=0?`Debes enterar ${m(r.neto)} al SII.`:`Queda remanente de crédito fiscal de ${m(-r.neto)}.`}</p></div>
+  <div class="note">Las 13 operaciones del minimarket no incluyen IVA para no complicar la mecánica. En la práctica, todo negocio afecto debe registrarlo por separado.</div>`+pager('iva');
+};
+
+function route(){
+  const id=(location.hash||'#inicio').slice(1).split('?')[0];
+  current=ROUTES.find(r=>r.id===id)||ROUTES[0];
+  $$('.view').forEach(v=>{v.hidden=v.id!=='v-'+current.id});
+  const el=$('#v-'+current.id);
+  if(views[current.id]) views[current.id](el);
+  nav(); const h=$('h1',el);if(h)h.focus({preventScroll:true}); window.scrollTo(0,0);
+}
+document.addEventListener('click',ev=>{const a=ev.target.closest('[data-done]');if(a)markDone(a.dataset.done)});
+window.addEventListener('hashchange',route);
+progress(); route();
+})();
+</script>
+
+<script>
+  // Service Worker integrado (permite que funcione sin internet)
+  if ('serviceWorker' in navigator) {
+    const swCode = `
+      const CACHE_NAME = 'aprendeya-v1';
+      self.addEventListener('install', (e) => { self.skipWaiting(); });
+      self.addEventListener('activate', (e) => { e.waitUntil(clients.claim()); });
+      self.addEventListener('fetch', (e) => {
+        e.respondWith(
+          caches.match(e.request).then((response) => {
+            return response || fetch(e.request).then((fetchRes) => {
+              return caches.open(CACHE_NAME).then((cache) => {
+                cache.put(e.request, fetchRes.clone());
+                return fetchRes;
+              });
+            });
+          }).catch(() => caches.match('./cuadernocontable.html'))
+        );
+      });
+    `;
+    const blob = new Blob([swCode], {type: 'application/javascript'});
+    const swURL = URL.createObjectURL(blob);
+    navigator.serviceWorker.register(swURL).catch(err => console.log('SW error:', err));
+  }
+</script>
+</body>
+</html>
